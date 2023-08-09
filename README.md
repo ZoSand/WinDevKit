@@ -5,8 +5,12 @@ It is designed to be a simple OOP wrapper for the Windows API, and is not intend
 
 # Usage
 
-Include the WDK.h header file in your project, and link against the WDK.lib library.
+Include the WDK.h header file in your project, and link against the WDK.lib library. <br>
 Alternatively, you could include the WDK project in your solution and add it as a reference for your project.
+
+Either way, you will need to add the include directory to your project's additionnal include directories.
+
+<ADD DETAILED INFOS>
 
 # Example
 
