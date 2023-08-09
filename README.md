@@ -10,7 +10,7 @@ Alternatively, you could include the WDK project in your solution and add it as 
 
 Either way, you will need to add the include directory to your project's additionnal include directories.
 
-<ADD DETAILED INFOS>
+[ADD DETAILED INFOS]
 
 # Example
 
