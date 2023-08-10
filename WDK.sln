@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33723.286
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WDK", "WDK.vcxproj", "{FF7B29D6-D148-4B2A-B6A6-4E43F682AF1A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WDK_Tests", "WDK_Tests.vcxproj", "{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{FF7B29D6-D148-4B2A-B6A6-4E43F682AF1A}.Release|x64.Build.0 = Release|x64
 		{FF7B29D6-D148-4B2A-B6A6-4E43F682AF1A}.Release|x86.ActiveCfg = Release|Win32
 		{FF7B29D6-D148-4B2A-B6A6-4E43F682AF1A}.Release|x86.Build.0 = Release|Win32
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Debug|x64.ActiveCfg = Debug|x64
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Debug|x64.Build.0 = Debug|x64
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Debug|x86.ActiveCfg = Debug|Win32
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Debug|x86.Build.0 = Debug|Win32
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Release|x64.ActiveCfg = Release|x64
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Release|x64.Build.0 = Release|x64
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Release|x86.ActiveCfg = Release|Win32
+		{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

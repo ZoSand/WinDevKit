@@ -19,54 +19,51 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\WDK\Definitions.hpp" />
-    <ClInclude Include="include\WDK\Message.hpp" />
-    <ClInclude Include="include\WDK\Rectangle.hpp" />
-    <ClInclude Include="include\WDK\String.hpp" />
-    <ClInclude Include="include\WDK\WDK.hpp" />
-    <ClInclude Include="include\WDK\Window.hpp" />
+    <ClCompile Include="src\WDK_Tests\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\WDK\Definitions.cpp" />
-    <ClCompile Include="src\WDK\Message.cpp" />
-    <ClCompile Include="src\WDK\Rectangle.cpp" />
-    <ClCompile Include="src\WDK\String.cpp" />
-    <ClCompile Include="src\WDK\WDK.cpp" />
-    <ClCompile Include="src\WDK\Window.cpp" />
+    <ProjectReference Include="WDK.vcxproj">
+      <Project>{ff7b29d6-d148-4b2a-b6a6-4e43f682af1a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
+    <ProjectGuid>{AB11DA3E-001B-4D35-8ACF-0BAD8580F511}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ff7b29d6-d148-4b2a-b6a6-4e43f682af1a}</ProjectGuid>
-    <RootNamespace>WDK</RootNamespace>
+    <RootNamespace>WDKTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectSubType>NativeUnitTestProject</ProjectSubType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -86,6 +83,11 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)WDK_Build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)WDK_Build\$(Platform)-int\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)WDK_Build\$(Platform)\$(Configuration)\</OutDir>
@@ -96,103 +98,78 @@
     <OutDir>$(SolutionDir)WDK_Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)WDK_Build\$(Platform)-int\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)WDK_Build\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)WDK_Build\$(Platform)-int\$(Configuration)\</IntDir>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)WDK_Build\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)WDK_Build\$(Platform)-int\$(Configuration)\</IntDir>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>WDK\pch.hpp</PrecompiledHeaderFile>
-      <LanguageStandard>Default</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <UseFullPaths>true</UseFullPaths>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Shlwapi.lib</AdditionalDependencies>
-    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <UseFullPaths>true</UseFullPaths>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>WDK\pch.hpp</PrecompiledHeaderFile>
-      <LanguageStandard>Default</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <UseFullPaths>true</UseFullPaths>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Shlwapi.lib</AdditionalDependencies>
-    </Lib>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>WDK\pch.hpp</PrecompiledHeaderFile>
-      <LanguageStandard>Default</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
-    <Link>
-      <SubSystem>
-      </SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-    <Lib>
-      <AdditionalDependencies>Shlwapi.lib</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile>WDK\pch.hpp</PrecompiledHeaderFile>
-      <LanguageStandard>Default</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <UseFullPaths>true</UseFullPaths>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <Lib>
-      <AdditionalDependencies>Shlwapi.lib</AdditionalDependencies>
-    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

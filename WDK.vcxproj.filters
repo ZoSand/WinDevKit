@@ -35,22 +35,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Window.cpp">
+    <ClCompile Include="src\WDK\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Rectangle.cpp">
+    <ClCompile Include="src\WDK\Rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Definitions.cpp">
+    <ClCompile Include="src\WDK\Definitions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\String.cpp">
+    <ClCompile Include="src\WDK\String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\WDK.cpp">
+    <ClCompile Include="src\WDK\WDK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Message.cpp">
+    <ClCompile Include="src\WDK\Message.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
