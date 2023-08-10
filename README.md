@@ -1,7 +1,7 @@
 # Windows Development Kit
 
-WDK is a C++ Wrapper for the Windows API.
-It is designed to be a simple OOP wrapper for the Windows API, and is not intended to be a full fledged framework.
+WDK is a C++ Wrapper for the Windows API. <br>
+Although it provides helper functions, it is designed to be a simple OOP wrapper for the Windows API and is not intended to be a full-fledged framework.
 
 # Usage
 
@@ -11,6 +11,10 @@ Alternatively, you could include the WDK project in your solution and add it as 
 Either way, you will need to add the include directory to your project's additionnal include directories.
 
 [ADD DETAILED INFOS]
+
+# Requirements
+
+- [Microsoft Visual Studio](https://visualstudio.microsoft.com/fr/) 2019 or Higher. Alternatively, you can use [Jetbrains Rider](https://www.jetbrains.com/fr-fr/rider/).
 
 # Example
 
