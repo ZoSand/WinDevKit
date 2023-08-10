@@ -19,7 +19,7 @@ Either way, you will need to add the include directory to your project's additio
 
 int main(int _argc, char* _argv[])
 {
-    WDK::Window wnd("WDK", WDK::Rectangle(0, 0, 800, 600));
+    WDK::Window wnd(TEXT("WDK"), WDK::Rectangle::FromDimension(CW_USEDEFAULT, CW_USEDEFAULT, 800, 600));
 
     wnd.Open();
 
