@@ -24,12 +24,9 @@ Either way, you will need to add the include directory to your project's additio
 int main(int _argc, char* _argv[])
 {
 	WDK::Rectangle clientArea = WDK::Rectangle::FromDimension(CW_USEDEFAULT, CW_USEDEFAULT, 800, 600); //client area
-	WDK::WindowClass nclass(TEXT("WDKClass")); //creates a wndclassex with default data
+	WDK::WindowClass nclass(TEXT("WDKClass")); //creates a wndclassex with minimum default data
 
-	if (!nclass.Register())
-	{
-		throw;
-	}
+	nclass.Register() //you should check for error here but I keep the example straight to the point 
 
 	WDK::Window wnd(nclass, TEXT("WDK"), clientArea);
 
