@@ -19,23 +19,34 @@ Either way, you will need to add the include directory to your project's additio
 # Example
 
 ```cpp
-#include <WDK/WDK.h>
+#include <WDK/WDK.hpp>
 
 int main(int _argc, char* _argv[])
 {
-    WDK::Window wnd(TEXT("WDK"), WDK::Rectangle::FromDimension(CW_USEDEFAULT, CW_USEDEFAULT, 800, 600));
+	WDK::Rectangle clientArea = WDK::Rectangle::FromDimension(CW_USEDEFAULT, CW_USEDEFAULT, 800, 600); //client area
+	WDK::WindowClass nclass(TEXT("WDKClass")); //creates a wndclassex with default data
 
-    wnd.Open();
+	if (!nclass.Register())
+	{
+		throw;
+	}
 
-    while (wnd.IsOpen())
-    {
-        wnd.Update();
+	WDK::Window wnd(nclass, TEXT("WDK"), clientArea);
 
-        //Do something stoopid here
-    }
+	wnd.Open();
 
-    return 0;
+	WDK::Message msg;
+	while (msg.Get(wnd))
+	{
+		msg.TranslateAndDispatch(); //do both translate and dispatch at the same time (methods exists separately in Mesasge class)
+	}
+
+	wnd.Destroy();
+	nclass.UnregisterSecure(); //checks if nobody uses the class before deleting
+
+	return 0;
 }
+
 ```
 
 # License

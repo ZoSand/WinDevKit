@@ -25,6 +25,7 @@
     <ClInclude Include="include\WDK\String.hpp" />
     <ClInclude Include="include\WDK\WDK.hpp" />
     <ClInclude Include="include\WDK\Window.hpp" />
+    <ClInclude Include="include\WDK\WindowClass.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\WDK\Definitions.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="src\WDK\String.cpp" />
     <ClCompile Include="src\WDK\WDK.cpp" />
     <ClCompile Include="src\WDK\Window.cpp" />
+    <ClCompile Include="src\WDK\WindowClass.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

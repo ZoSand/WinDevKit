@@ -36,7 +36,7 @@ namespace WDK
 		Rectangle SetWidth(long _width);
 		Rectangle SetHeight(long _height);
 
-		Rectangle Adjust(Window _window, Window::Style _style);
+		Rectangle Adjust(Window::Style _style = Window::Style::OverlappedWindow, bool _isMenu = false);
 
 		static Rectangle FromDimension(long _left, long _top, long _width, long _height);
 	private:

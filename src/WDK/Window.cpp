@@ -1,11 +1,13 @@
 #include <WDK/Window.hpp>
 
+#include <WDK/Definitions.hpp>
 #include <WDK/Rectangle.hpp>
 #include <WDK/Message.hpp>
 
 #include <cassert>
 
-#define WDK_WINDOW_CLASS_NAME TEXT("WDKWindowClass")
+#include <string>
+#include <iostream>
 
 namespace WDK
 {
@@ -13,17 +15,16 @@ namespace WDK
 
 	Window::Window()
 		: m_handle(nullptr)
-		, m_class(0)
 	{
 	}
 
 	Window::Window(::HWND _handle)
 		: m_handle(_handle)
-		, m_class(::GetClassWord(_handle, GCW_ATOM))
 	{
 	}
 
 	Window::Window(
+		WDK::WindowClass _class,
 		WDK::String _title,
 		WDK::Rectangle _clientArea,
 		const Style _style,
@@ -63,59 +64,41 @@ namespace WDK
 
 		//TODO Zo: parse _style Extended
 		::DWORD exStyle = static_cast<::DWORD>(0);
+		::WNDCLASSEX nativeClass = _class.GetNativeClass();
 
-		::WNDCLASSEX windowClass = { 0 };
-		int x = _clientArea.GetLeft();
-		int y = _clientArea.GetTop();
-
-		windowClass.cbSize = sizeof(::WNDCLASSEX);
-		windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-		windowClass.lpfnWndProc = &Window::WndProc;
-		windowClass.hInstance = ::GetModuleHandle(nullptr);
-		windowClass.hCursor = ::LoadCursor(nullptr, IDC_ARROW);
-		windowClass.hbrBackground = reinterpret_cast<::HBRUSH>(COLOR_WINDOW + 1);
-		windowClass.lpszClassName = WDK_WINDOW_CLASS_NAME;
-		windowClass.hIcon = ::LoadIcon(nullptr, IDI_APPLICATION);
-		windowClass.hIconSm = ::LoadIcon(nullptr, IDI_APPLICATION);
-		m_class = ::RegisterClassEx(&windowClass);
-
-		_clientArea.Adjust(*this, _style);
-		this->m_handle = ::CreateWindowExW(
+		this->m_handle = ::CreateWindowEx(
 			exStyle,
-			MAKEINTRESOURCE(this->m_class),
+			nativeClass.lpszClassName,
 			_title.GetNativeString(),
 			style,
-			x,
-			y,
+			_clientArea.GetLeft(),
+			_clientArea.GetTop(),
 			_clientArea.GetWidth(),
 			_clientArea.GetHeight(),
 			_parent.m_handle,
 			nullptr,
-			::GetModuleHandle(nullptr),
+			nativeClass.hInstance,
 			nullptr //this
 		);
 
 		//TODO Zo: WDK::Utils::GetLastError
-		assert(this->m_handle != nullptr);
+		WDK_ASSERT(this->m_handle != nullptr, "Could not create handle");
 	}
 
 	Window::~Window()
 	{
-		::DestroyWindow(this->m_handle);
-
-		//unregister class if no one uses it
-		if (::FindWindowEx(nullptr, nullptr, MAKEINTRESOURCE(this->m_class), nullptr) != nullptr)
-		{
-			::UnregisterClass(MAKEINTRESOURCE(this->m_class), ::GetModuleHandle(nullptr));
-		}
-
-		this->m_class = reinterpret_cast<::ATOM>(nullptr);
-		this->m_handle = static_cast<::HWND>(nullptr);
 	}
 
 	::HWND Window::GetNativeHandle() const
 	{
 		return this->m_handle;
+	}
+
+	bool Window::Destroy()
+	{
+		bool result = ::DestroyWindow(this->m_handle) != FALSE;
+		this->m_handle = static_cast<::HWND>(nullptr);
+		return result;
 	}
 
 	Window Window::SetParent(Window _parent)
@@ -161,22 +144,22 @@ namespace WDK
 
 	bool Window::IsMinimized() const
 	{
-		return ::IsIconic(this->m_handle) == TRUE;
+		return ::IsIconic(this->m_handle) != FALSE;
 	}
 
 	bool Window::IsMaximized() const
 	{
-		return ::IsZoomed(this->m_handle) == TRUE;
+		return ::IsZoomed(this->m_handle) != FALSE;
 	}
 
 	bool Window::IsVisible() const
 	{
-		return ::IsWindowVisible(this->m_handle) == TRUE;
+		return ::IsWindowVisible(this->m_handle) != FALSE;
 	}
 
 	bool Window::IsOpen()
 	{
-		return ::IsWindow(this->m_handle) == TRUE;
+		return ::IsWindow(this->m_handle) != FALSE;
 	}
 
 	bool Window::IsMenu() const
@@ -187,21 +170,13 @@ namespace WDK
 	void Window::Open()
 	{
 		::ShowWindow(this->m_handle, SW_SHOW);
-		::UpdateWindow(this->m_handle);
 	}
 
 	void Window::Update()
 	{
-		Message message;
-		while (message.Peek())
-		{
-			message.TranslateAndDispatch();
-		}
+		/*return*/ 
+		::UpdateWindow(m_handle);
 	}
-
-	//----------protected----------
-
-	//----------private----------
 
 	//STATIC METHODS
 	::LRESULT CALLBACK Window::WndProc(
@@ -211,9 +186,12 @@ namespace WDK
 		::LPARAM _lParam
 	)
 	{
+		std::cout << _uMsg << std::endl;
+
 		switch (_uMsg)
 		{
 		case WM_CLOSE:
+			std::cout << "Close" << std::endl;
 			::DestroyWindow(_hWnd);
 			break;
 		case WM_DESTROY:
@@ -224,4 +202,8 @@ namespace WDK
 		}
 		return 0;
 	}
+
+	//----------protected----------
+
+	//----------private----------
 }

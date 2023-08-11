@@ -1,16 +1,31 @@
 #include <WDK/String.hpp>
 
-#include <Shlwapi.h>
+#include <strsafe.h>
 
 namespace WDK
 {
 	String::String(const ::LPCTSTR _string)
 	{
-		this->m_string = ::StrDup(_string);
-		if (this->m_string != NULL)
+		int len = ::lstrlen(_string);
+		::SIZE_T allocSize = len * sizeof(TCHAR);
+		
+		this->m_string = static_cast<::LPTSTR>(::LocalAlloc(LPTR, allocSize)); //TODO Zo: check for null
+
+		if (this->m_string == 0)
 		{
-			LocalFree(this->m_string);
+			throw;
 		}
+
+		::StringCchCopy(this->m_string, allocSize, _string); //TODO Zo: check return
+
+		if (this->m_string == NULL)
+		{
+			::LocalFree(this->m_string);
+		}
+	}
+
+	String::~String()
+	{
 	}
 
 	::LPTSTR String::GetNativeString() const

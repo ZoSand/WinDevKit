@@ -9,7 +9,8 @@ namespace WDK
 	class String
 	{
 	public:
-		String(::LPCTSTR _string);
+		String(const ::LPCTSTR _string);
+		~String();
 
 		::LPTSTR GetNativeString() const;
 

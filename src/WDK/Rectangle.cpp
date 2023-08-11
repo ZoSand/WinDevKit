@@ -94,9 +94,9 @@ namespace WDK
 		return *this;
 	}
 
-	Rectangle Rectangle::Adjust(Window _window, Window::Style _style)
+	Rectangle Rectangle::Adjust(Window::Style _style, bool _isMenu)
 	{
-		::AdjustWindowRect(&this->m_rect, _style, _window.IsMenu());
+		::AdjustWindowRect(&this->m_rect, _style, _isMenu);
 		return *this;
 	}
 

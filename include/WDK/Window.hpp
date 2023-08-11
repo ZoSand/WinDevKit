@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <WDK/String.hpp>
+#include <WDK/WindowClass.hpp>
 
 #include <vector>
 
@@ -13,11 +14,10 @@ namespace WDK
 	class Window
 	{
 	public:
-
 		/// <summary>
 		/// Window events for callbacks
 		/// </summary>
-		enum Event
+		/*enum Event
 		{
 			Null = WM_NULL,
 			Create = WM_CREATE,
@@ -227,6 +227,7 @@ namespace WDK
 			DpichangedBeforeParent = WM_DPICHANGED_BEFOREPARENT,
 			DpichangedAfterParent = WM_DPICHANGED_AFTERPARENT,
 		};
+		*/
 
 		/// <summary>
 		/// Values for Event::Activate
@@ -291,6 +292,7 @@ namespace WDK
 		/// <param name="_style">The style of the window</param>
 		/// <param name="_parent">Parent window</param>
 		Window(
+			WDK::WindowClass _class,
 			WDK::String _title, 
 			WDK::Rectangle _clientArea, 
 			const Style _style = Style::OverlappedWindow, 
@@ -307,6 +309,14 @@ namespace WDK
 		/// </summary>
 		/// <returns>The native window handle</returns>
 		::HWND GetNativeHandle() const;
+
+		/// <summary>
+		/// Destroys the window
+		/// </summary>
+		/// <returns>true if the function succeeds, false otherwise</returns>
+		bool Destroy();
+
+		//TODO Zo: Getters/Setters
 
 		/// <summary>
 		/// Changes the parent window of the specified child window.
@@ -377,10 +387,6 @@ namespace WDK
 		/// <returns>Whether the window is open</returns>
 		void Update();
 
-	private:
-		::HWND m_handle;
-		::ATOM m_class;
-
 		/// <summary>
 		/// The native window procedure. This method is in charge of dispatching events to callbacks.
 		/// </summary>
@@ -395,5 +401,8 @@ namespace WDK
 			::WPARAM _wParam,
 			::LPARAM _lParam
 		);
+
+	private:
+		::HWND m_handle;
 	};
 }

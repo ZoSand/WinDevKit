@@ -1,3 +1,5 @@
 #pragma once
 
-#define MACRO(x) x
+#include <cassert>
+
+#define WDK_ASSERT(conditions, message) assert(conditions && message);

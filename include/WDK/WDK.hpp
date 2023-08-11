@@ -10,4 +10,6 @@
 #include <WDK/Rectangle.hpp>
 
 // Handles
+#include <WDK/Message.hpp>
+#include <WDK/WindowClass.hpp>
 #include <WDK/Window.hpp>
