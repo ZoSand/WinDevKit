@@ -26,7 +26,7 @@ int main(int _argc, char* _argv[])
 	WDK::Rectangle clientArea = WDK::Rectangle::FromDimension(CW_USEDEFAULT, CW_USEDEFAULT, 800, 600); //client area
 	WDK::WindowClass nclass(TEXT("WDKClass")); //creates a wndclassex with minimum default data
 
-	nclass.Register() //you should check for error here but I keep the example straight to the point 
+	nclass.Register(); //you should check for error here but I keep the example straight to the point 
 
 	WDK::Window wnd(nclass, TEXT("WDK"), clientArea);
 
